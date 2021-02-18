@@ -1,0 +1,116 @@
+<app-headar></app-headar>
+
+
+<nav class="navbar navbar-expand-md">
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('save')" [model]="items"></p-splitButton>
+  </div>
+</nav>
+
+
+
+
+<div class="container mrg-20px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <form [formGroup]="customerForm" (submit)="updateCustomer()" class="form-inline mb-4">
+
+        <div class="col-md-8">
+          <div class="row">
+            <label class="col-md-4">Name:</label>
+            <mat-form-field class="tp-full-width">
+              <input matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <label class="col-md-4">Age:</label>
+            <mat-form-field class="tp-full-width">
+              <input matInput placeholder="Age" formControlName="age">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <label class="col-md-4">Profession:</label>
+            <mat-form-field class="tp-full-width">
+              <input matInput placeholder="Profession" formControlName="profession">
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <label class="col-md-4">Country:</label>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Country" aria-label="State" [matAutocomplete]="auto"
+                [formControl]="stateCtrl">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                  <span>{{state.name}}</span>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <label class="col-md-4">DOB:</label>
+
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="empData.dob">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </form>
+
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="mrg-20px">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <p-accordion>
+      <p-accordionTab header="Header 1">
+        Content 1
+      </p-accordionTab>
+      <p-accordionTab header="Header 2">
+        Content 2
+      </p-accordionTab>
+      <p-accordionTab header="Header 3">
+        Content 3
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+  <div class="col-sm-2"></div>
+</div> -->
+
+
+
+<!-- <div class="mt-4">
+  <h3>Edit Customer</h3>
+  <form [formGroup]="customerForm" (submit)="updateCustomer()" class="form-inline mb-4">
+
+    <label class="sr-only" for="Name">Name</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <input type="text" class="form-control" formControlName="name" placeholder="name">
+    </div>
+
+    <label class="sr-only" for="Age">Phone</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <input type="text" class="form-control" formControlName="age" placeholder="Age">
+    </div>
+
+    <label class="sr-only" for="Address">Profession</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <input type="text" class="form-control" formControlName="profession" placeholder="Profession">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary mb-2">Update Customer</button>
+
+  </form>
+</div> -->

@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <a href="/layout/home" class="navbar-brand">Home</a>
+  <a href="/layout/test" class="navbar-brand">Test</a>
+
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+
+    <div class="navbar-nav ml-auto">
+      <a class="nav-item nav-link"></a>
+      <p-dropdown [style]="{'width': '100px'}" [options]="dropdownArray" [(ngModel)]="dropdownValue"
+        placeholder="Select" optionLabel="name"  tooltipPosition="top" (onChange)="onChange($event)"></p-dropdown>
+
+
+      <!-- <p-dropdown [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" dropdownIcon="fa fa-angle-down"
+        (onChange)="onChange($event)" [options]="dropdownArray" [(ngModel)]="dropdownValue"
+        placeholder="Select a Primary Target">
+        <ng-template let-item pTemplate="selectedItem">
+          <span style="vertical-align:middle">{{item.label}}</span>
+        </ng-template>
+        <ng-template let-target pTemplate="item">
+          <div class="ui-helper-clearfix" style="position: relative;height:25px;"
+            pTooltip="{{getTargetDescription(target)}}" tooltipPosition="top">
+            <span style="font-size:14px;float:right;margin-top:4px">{{item.label}}</span>
+          </div>
+        </ng-template>
+      </p-dropdown> -->
+
+
+
+      <!-- <a class="nav-item nav-link ptr" (click)="onClickLogout()">Logout</a> -->
+    </div>
+  </div>
+</nav>

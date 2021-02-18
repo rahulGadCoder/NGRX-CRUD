@@ -1,0 +1,63 @@
+<app-headar></app-headar>
+
+
+<div class="container mrg-20px">
+  <div class="container-fluid">
+
+    <!-- <div class="row">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div>
+          <input id="male" type="radio" value="male" name="gender" formControlName="gender">
+          <label for="male">Male</label>
+        </div>
+
+        <div>
+          <input id="female" type="radio" value="female" name="gender" formControlName="gender">
+          <label for="female">Female</label>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div> -->
+
+
+
+    <div class="row">
+      <div class="col-md-1">
+        <label>Data:</label>
+      </div>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)]="product" class="form-control">
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-outline-success mrg-rgt-10px" (click)="addToCart()">Add</button>
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <app-dashboard></app-dashboard>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="layout-column align-items-center mt-50">
+
+    <section class="layout-row align-items-center justify-content-between">
+      <label>Celsius: </label>
+      <input type="number" class="large" [(ngModel)]="celsius" (ngModelChange)="onChangeCelsius($event)" data-test-id="celsius-input"/>
+    </section>
+  
+    <section class="layout-row align-items-center justify-content-between">
+        <label>Fahrenheit: </label>
+        <input type="number" class="large" [(ngModel)]="fahrenheit" (ngModelChange)="onChangeFahrenheit($event)" data-test-id="fahrenheit-input"/>
+    </section>
+  </div> -->

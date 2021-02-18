@@ -1,0 +1,17 @@
+<div class="container mrg-20px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-6">
+        <div *ngFor="let data of products; let i = index">
+          <span>{{i+1}}.</span>
+          <span>{{data.name}}</span>
+        </div>
+        <div *ngIf="products.length == 0">
+          <span>No Data Found</span>
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</div>

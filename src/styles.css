@@ -1,0 +1,25 @@
+@import "../src/css/bootstrap.css";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
+
+
+.mrg-20px{
+    margin-top: 20px;
+}
+
+.ptr{
+    cursor: pointer;
+}
+
+.mrg-top-10px{
+    margin-top: 10px;;
+}
+
+.mrg-rgt-10px{
+    margin-right: 10px;
+}

@@ -1,0 +1,251 @@
+<app-headar></app-headar>
+<nav class="navbar navbar-expand-md">
+  <!-- <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar ml-auto">
+      <button class="btn btn-outline-success" (click)="onAddRowClick()" data-toggle="modal"
+        [attr.data-target]="'#' + addFlag">Add</button>
+      <a class="nav-item nav-link"></a>
+      <button class="btn btn-outline-success" (click)="onAddRowClick()">Delete All</button>
+      <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="search">
+    </div>
+  </div> -->
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+
+    <button class="btn btn-outline-success mrg-rgt-10px" (click)="onAddRowClick()" data-toggle="modal"
+      [attr.data-target]="'#' + addFlag">Add</button>
+
+    <button [disabled]="! isDelete" class="btn btn-outline-success mrg-rgt-10px" data-toggle="modal"
+      data-target="#confirm">Save</button>
+    <button [disabled]="! isDelete" class="btn btn-outline-success mrg-rgt-10px"
+      (click)="onClickDeleteCancel()">Cancel</button>
+
+    <!-- <button class="btn btn-outline-success mrg-rgt-10px" (click)="showSuccess()">Delete All</button> -->
+    <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2" type="text" name="something"
+        placeholder="Search" [(ngModel)]="search"></form>
+  </div>
+</nav>
+
+
+<div class="mrg-20px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+
+      </div>
+
+      <div class="col-md-10">
+
+        <div class="table-responsive table-container">
+          <table class="table ptr">
+            <thead>
+              <tr>
+                <th (click)="sort('id')">No.</th>
+                <th (click)="sort('name')">Name</th>
+                <th (click)="sort('age')">Age</th>
+                <th (click)="sort('profession')">Profession</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" (change)="selectAll()" [checked]="selectedAll">
+                    <label class="form-check-label">
+                    </label>
+                  </div>
+                </th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr *ngFor="let emp of empList | filter:search; let i= index;"> -->
+              <tr *ngFor="let emp of (emplist$ |async) | filter:search; let i= index;">
+                <td>{{i+1}}</td>
+                <td>{{emp.name}}</td>
+                <td>{{emp.age}}</td>
+                <td>{{emp.profession}}</td>
+                <td><button class="btn btn-outline-success" (click)="onRowClick(emp.id)" data-toggle="modal"
+                    [attr.data-target]="'#' + updateFlag">Edit</button>
+                </td>
+                <td>
+                  <button class="btn btn-outline-success" (click)="onClickDeleteRow(emp.id,i)">Delete</button>
+                </td>
+                <td>
+                  <input class="form-group" type="checkbox" [(ngModel)]="emp.selected" (change)="checkIfAllSelected()">
+                </td>
+                <td>
+                  <button class="btn btn-outline-success" (click)="onRowClickEvent(emp)">Select</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="{{addFlag}}" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addModal">Add Form</h5>
+        <button type="button" #addclosebutton class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="addForm" class="form-group">
+          <div class="form-group">
+            <input type="text" class="form-control" formControlName="name" placeholder="Enter Name"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Name is required.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control" formControlName="age" maxlength="3" numbersOnly
+              placeholder="Enter Age" [ngClass]="{ 'is-invalid': submitted && f.age.errors }">
+            <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+              <div *ngIf="f.age.errors.required">Age is required.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control" formControlName="profession" alphanemericOnly
+              placeholder="Enter Profession" [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
+            <div *ngIf="submitted && f.profession.errors" class="invalid-feedback">
+              <div *ngIf="f.profession.errors.required">Profession is required.</div>
+            </div>
+          </div>
+
+
+          <!-- <div class="form-group">
+            <p-calendar formControlName="dob" placeholder="Enter Dob"
+              [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" [monthNavigator]="true" [yearNavigator]="true"
+              yearRange="2000:2030" dateFormat="dd.mm.yy"></p-calendar>
+            <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+              <div *ngIf="f.dob.errors.required">DOB is required.</div>
+            </div>
+          </div> -->
+
+          <!-- <table class="table table-bordered" formArrayName="address">
+            <tr>
+              <th colspan="2">Add Multiple Address:</th>
+              <th width="150px"><button type="button" (click)="addAddress()" class="btn btn-primary">Add More</button>
+              </th>
+            </tr>
+            <tr *ngFor="let addrss of address().controls; let i=index" [formGroupName]="i">
+              <td>
+                Area :
+                <input type="text" formControlName="area" class="form-control">
+              </td>
+              <td>
+                City:
+                <input type="text" formControlName="city" class="form-control">
+              </td>
+              <td>
+                Pin:
+                <input type="text" formControlName="pin" class="form-control">
+              </td>
+              <td>
+                <button (click)="removeAddress(i)" class="btn btn-danger">Remove</button>
+              </td>
+            </tr>
+          </table> -->
+
+
+
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onClickAdd()" id="addcloseModal">Add</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="{{updateFlag}}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Form</h5>
+        <button type="button" #updateclosebutton class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="addForm" class="form-group">
+          <div class="form-group">
+            <input type="text" class="form-control" formControlName="name" placeholder="Enter Name"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Name is required.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control" formControlName="age" maxlength="3" numbersOnly
+              placeholder="Enter Age" [ngClass]="{ 'is-invalid': submitted && f.age.errors }">
+            <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+              <div *ngIf="f.age.errors.required">Age is required.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control" formControlName="profession" alphanemericOnly
+              placeholder="Enter Profession" [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
+            <div *ngIf="submitted && f.profession.errors" class="invalid-feedback">
+              <div *ngIf="f.profession.errors.required">Profession is required.</div>
+            </div>
+          </div>
+
+          <!-- <div class="form-group">
+            <p-calendar formControlName="dob" placeholder="Enter Dob"
+              [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" [monthNavigator]="true" [yearNavigator]="true"
+              yearRange="2000:2030" dateFormat="dd.mm.yy"></p-calendar>
+            <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+              <div *ngIf="f.dob.errors.required">DOB is required.</div>
+            </div>
+          </div> -->
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onClickUpdate()" id="updateclosebutton">Update</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" id="confirm" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+        <button type="button" #closebutton class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure want to delete the record?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onDeleteClick()" id="closebutton">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>

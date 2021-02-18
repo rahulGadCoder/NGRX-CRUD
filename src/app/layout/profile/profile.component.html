@@ -1,0 +1,61 @@
+<app-headar></app-headar>
+
+<div class="container">
+  <div class="card card-container">
+    <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+    <span>Profile</span>
+    <form [formGroup]="profileForm" class="form-group mrg-20px" (ngSubmit)="onFormSubmit()">
+
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="name" placeholder="First Name"
+          [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">First name is required.</div>
+        </div>
+      </div>
+
+      <!-- <div class="form-group">
+        <input type="text" class="form-control" formControlName="lastName" placeholder="Enter Last Name"
+          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+          <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+        </div>
+      </div> -->
+
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="age" placeholder="Enter Age"
+          [ngClass]="{ 'is-invalid': submitted && f.age.errors }">
+        <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+          <div *ngIf="f.age.errors.required">Age is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="profession" placeholder="Profession"
+          [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
+        <div *ngIf="submitted && f.profession.errors" class="invalid-feedback">
+          <div *ngIf="f.profession.errors.required">Profession is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <p-autoComplete formControlName="country" [suggestions]="filteredCountriesSingle"
+          (completeMethod)="filterCountrySingle($event)" field="name" [size]="30" placeholder="select Country"
+          [minLength]="1">
+        </p-autoComplete>
+      </div>
+
+      <!-- <div class="form-group">
+        <p-autoComplete [(ngModel)]="country" [suggestions]="filteredCountriesSingle"
+          (completeMethod)="filterCountrySingle($event)" field="name" [size]="30" placeholder="Countries"
+          [minLength]="1">
+        </p-autoComplete>
+      </div> -->
+
+
+
+      <button type="button" class="btn btn-primary makeItCenter" (click)="onClickUpdate()">Update</button>
+
+    </form>
+  </div>
+</div>
